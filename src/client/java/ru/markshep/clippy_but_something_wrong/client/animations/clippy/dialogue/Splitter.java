@@ -7,10 +7,10 @@ import ru.markshep.clippy_but_something_wrong.client.utils.exceptions.OutOfDialo
 import static ru.markshep.clippy_but_something_wrong.client.Clippy_but_something_wrongClient.client;
 import static ru.markshep.clippy_but_something_wrong.client.Clippy_but_something_wrongClient.modLogger;
 
+//Честно говоря, это очень плохой класс, он написан нейронкой, в будущем я его исправлю
+//TODO: переписать вручную
+//TODO: kill that with fire
 public class Splitter {
-
-    private static boolean errorLogged = false;
-
     public static List<String> splitText(String text) throws OutOfDialogueBoxException {
         List<String> lines = new ArrayList<>();
         TextRenderer font = client.textRenderer;
@@ -61,10 +61,6 @@ public class Splitter {
         }
 
         if (lines.size() >= 5) {
-            if (!errorLogged) {
-                modLogger.error("пустота");
-                errorLogged = true;
-            }
             throw new OutOfDialogueBoxException();
         }
 

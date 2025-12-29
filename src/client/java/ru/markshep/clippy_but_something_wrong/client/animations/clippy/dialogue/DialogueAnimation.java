@@ -17,7 +17,6 @@ import static ru.markshep.clippy_but_something_wrong.client.Clippy_but_something
 
 public class DialogueAnimation {
 
-    // Переменные диалогового окна
     private static float scaleHeight = 0.275f;
     private static float scaleWidth = 0.35f;
     public static int dialogueWidth = (int) (328 * scaleWidth);
@@ -25,17 +24,14 @@ public class DialogueAnimation {
     public static int dialogueX = 20;
     public static int dialogueY = (int) (150 - (64 * clippyScale / 2) - dialogueHeight + 10);
 
-    // Текст
     private static String fullText = "";
     private static boolean visible = false;
 
-    // Счётчики для анимации печати
     private static int totalChars = 0;
     private static int displayedChars = 0;
     private static int frameCounter = 0;
     private static int framesPerChar;
 
-    /** Запускает диалог один раз */
     public static void startDialogue(String text) {
         fullText = text;
         visible = true;
@@ -44,12 +40,10 @@ public class DialogueAnimation {
         frameCounter = 0;
     }
 
-    /** Скрывает диалог */
     public static void hideDialogue() {
         visible = false;
     }
 
-    /** Вызывается из render */
     public static void animate(DrawContext context) {
         if (!visible) return;
 

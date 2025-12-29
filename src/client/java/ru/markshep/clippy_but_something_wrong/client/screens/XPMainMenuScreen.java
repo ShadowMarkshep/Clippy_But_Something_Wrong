@@ -19,8 +19,7 @@ import java.time.format.DateTimeFormatter;
 
 import static ru.markshep.clippy_but_something_wrong.client.utils.Utils.id;
 
-//TODO: сделать второй экран для xpstart чтобы кнопки работали правильно внутри меню
-public class CustomMainMenuScreen extends Screen {
+public class XPMainMenuScreen extends Screen {
 
     public static int wallpaperFrame = 0;
     public static String wallpaperName;
@@ -31,10 +30,10 @@ public class CustomMainMenuScreen extends Screen {
 
     public static IconButton selectedButton = null;
 
-    public static boolean startMenuIsActive;
+    public static boolean startMenuIsActive = false;
 
 
-    public CustomMainMenuScreen() {
+    public XPMainMenuScreen() {
         super(Text.of("Главное меню"));
     }
 
@@ -69,6 +68,11 @@ public class CustomMainMenuScreen extends Screen {
                 () -> this.client.setScreen(new MultiplayerScreen(this)));
 
         this.addDrawableChild(multiPlayerButton);
+
+        if (startMenuIsActive){
+            PowerOffButton powerOffButton = new PowerOffButton(200 - 45, this.height - 17 - 5, 21, 21);
+            this.addDrawableChild(powerOffButton);
+        }
     }
 
     @Override
@@ -101,7 +105,7 @@ public class CustomMainMenuScreen extends Screen {
             wallpaperFrame++;
         }
 
-        //taskbar
+        //Task Bar
         context.drawTexture(RenderLayer::getGuiTextured,
                 id("screens/taskbar.png"),
                 0,
@@ -120,11 +124,7 @@ public class CustomMainMenuScreen extends Screen {
                 0xFFFFFF,
                 true);
 
-
-        //Кнопки
-        super.render(context, mouseX, mouseY, delta);
-
-        //StartMenu
+        //Start Menu
         if (startMenuIsActive) {
             context.drawTexture(RenderLayer::getGuiTextured,
                     id("screens/avatar.png"),
@@ -154,9 +154,10 @@ public class CustomMainMenuScreen extends Screen {
                     (this.height - 200 - 17) + client.textRenderer.fontHeight,
                     0xFFFFFF,
                     true);
-
-            PowerOffButton powerOffButton = new PowerOffButton(200 - 45, this.height - 17 - 5, 21, 21);
         }
+
+        //Кнопки
+        super.render(context, mouseX, mouseY, delta);
     }
 
     public void renderBackground(DrawContext context, int mouseX, int mouseY, float deltaTicks) {

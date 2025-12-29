@@ -6,7 +6,7 @@ import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import ru.markshep.clippy_but_something_wrong.client.screens.CustomMainMenuScreen;
+import ru.markshep.clippy_but_something_wrong.client.screens.XPMainMenuScreen;
 
 import static ru.markshep.clippy_but_something_wrong.client.Clippy_but_something_wrongClient.client;
 
@@ -41,7 +41,7 @@ public class IconButton extends ClickableWidget {
         int tx = this.getX() + (this.width - textW) / 2;
         int ty = this.getY() + this.getHeight() + 2;
 
-        if (CustomMainMenuScreen.selectedButton == this) {
+        if (XPMainMenuScreen.selectedButton == this) {
             context.fill(this.getX(), this.getY(), this.getX() + this.getWidth(), this.getY() + this.getHeight(), 0x553399FF);
 
             context.fill(tx - 1, ty - 1, tx + textW + 1, ty + textH + 1, 0xFF3399FF);
@@ -70,16 +70,16 @@ public class IconButton extends ClickableWidget {
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (this.isMouseOver(mouseX, mouseY)) {
             if (this.onClickAction != null) {
-                if (CustomMainMenuScreen.selectedButton == null || CustomMainMenuScreen.selectedButton == this) {
-                    if (CustomMainMenuScreen.selectedButton == this){
+                if (XPMainMenuScreen.selectedButton == null || XPMainMenuScreen.selectedButton == this) {
+                    if (XPMainMenuScreen.selectedButton == this){
                         this.onClickAction.run();
                         return true;
                     } else {
-                        CustomMainMenuScreen.selectedButton = this;
+                        XPMainMenuScreen.selectedButton = this;
                         return true;
                     }
                 } else {
-                    CustomMainMenuScreen.selectedButton = this;
+                    XPMainMenuScreen.selectedButton = this;
                     return true;
                 }
             } else {
