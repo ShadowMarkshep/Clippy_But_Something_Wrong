@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "clippy_but_something_wrong",
+  "version": "${version}",
+  "name": "Clippy_But_Something_Wrong",
+  "description": "Помощник для майнкрафта по имени Скрепыш, но с ним что-то не так",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/clippy_but_something_wrong/clippyicon.png",
+  "environment": "client",
+  "entrypoints": {
+    "fabric-datagen": [
+      "ru.markshep.clippy_but_something_wrong.client.Clippy_but_something_wrongDataGenerator"
+    ],
+    "client": [
+      "ru.markshep.clippy_but_something_wrong.client.Clippy_but_something_wrongClient"
+    ],
+    "main": [
+      "ru.markshep.clippy_but_something_wrong.Clippy_but_something_wrong"
+    ]
+  },
+  "mixins": [
+    "clippy_but_something_wrong.mixins.json",
+    {
+      "config": "clippy_but_something_wrong.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
