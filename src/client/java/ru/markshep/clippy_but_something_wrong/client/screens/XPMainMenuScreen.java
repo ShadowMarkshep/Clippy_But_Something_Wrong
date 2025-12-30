@@ -23,7 +23,7 @@ public class XPMainMenuScreen extends Screen {
 
     public static int wallpaperFrame = 0;
     public static String wallpaperName;
-    public static int wallpaperTotalFrames = 82;
+    public final static int wallpaperTotalFrames = 82;
 
     public static int wallpaperTotalCounter;
     public static int wallpaperCounter = 0;
