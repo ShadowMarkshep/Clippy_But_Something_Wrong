@@ -43,10 +43,6 @@ public class XPMainMenuScreen extends Screen {
             assert this.client != null;
             this.client.setScreen(new OptionsScreen(this, this.client.options));
         }).dimensions(this.width / 2 - 100, 10, 98, 20).build());
-        this.addDrawableChild(ButtonWidget.builder(Text.translatable("menu.quit"), (button) -> {
-            assert this.client != null;
-            this.client.scheduleStop();
-        }).dimensions(this.width / 2 + 2, 10, 98, 20).build());
 
         XpStartButton startMenuButton = new XpStartButton(0,
                 this.height - 17,
@@ -82,7 +78,7 @@ public class XPMainMenuScreen extends Screen {
         this.addDrawableChild(multiPlayerButton);
 
         if (startMenuIsActive){
-            PowerOffButton powerOffButton = new PowerOffButton(200 - 45, this.height - 17 - 5, 21, 21);
+            PowerOffButton powerOffButton = new PowerOffButton(200 - 45 - 16, this.height - 17 - 17, 16, 16);
             this.addDrawableChild(powerOffButton);
         }
     }

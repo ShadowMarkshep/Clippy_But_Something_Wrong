@@ -19,11 +19,11 @@ public class PowerOffButton extends ClickableWidget {
 
     @Override
     protected void renderWidget(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
-        context.drawText(client.textRenderer, Text.translatable("menu.quit"), this.getX(), this.getY(), 0x000000, true);
+        context.drawText(client.textRenderer, Text.of("Turn off"), this.getX() + 16 - client.textRenderer.getWidth(Text.of("Turn off")), this.getY() + 4, 0xFFFFFF, true);
         if(this.isHovered()) {
             context.drawTexture(RenderLayer::getGuiTextured,
                     id("screens/start_menu_buttons/power_off_hovered.png"),
-                    this.getX(),
+                    this.getX() - client.textRenderer.getWidth(Text.of("Turn off")) - 2,
                     this.getY(),
                     0,
                     0,
@@ -34,7 +34,7 @@ public class PowerOffButton extends ClickableWidget {
         } else {
             context.drawTexture(RenderLayer::getGuiTextured,
                     id("screens/start_menu_buttons/power_off_base.png"),
-                    this.getX(),
+                    this.getX() - client.textRenderer.getWidth(Text.of("Turn off")) - 2,
                     this.getY(),
                     0,
                     0,
