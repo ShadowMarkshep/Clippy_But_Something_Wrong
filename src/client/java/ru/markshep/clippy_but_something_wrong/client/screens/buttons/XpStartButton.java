@@ -64,11 +64,7 @@ public class XpStartButton extends ClickableWidget {
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (this.isMouseOver(mouseX, mouseY)) {
-            if (XPMainMenuScreen.startMenuIsActive) {
-                XPMainMenuScreen.startMenuIsActive = false;
-            } else {
-                XPMainMenuScreen.startMenuIsActive = true;
-            }
+            XPMainMenuScreen.startMenuIsActive = !XPMainMenuScreen.startMenuIsActive;
             client.setScreen(new XPMainMenuScreen());
             return true;
         }

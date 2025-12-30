@@ -39,8 +39,14 @@ public class XPMainMenuScreen extends Screen {
 
     @Override
     protected void init() {
-        this.addDrawableChild(ButtonWidget.builder(Text.translatable("menu.options"), (button) -> this.client.setScreen(new OptionsScreen(this, this.client.options))).dimensions(this.width / 2 - 100, 10, 98, 20).build());
-        this.addDrawableChild(ButtonWidget.builder(Text.translatable("menu.quit"), (button) -> this.client.scheduleStop()).dimensions(this.width / 2 + 2, 10, 98, 20).build());
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("menu.options"), (button) -> {
+            assert this.client != null;
+            this.client.setScreen(new OptionsScreen(this, this.client.options));
+        }).dimensions(this.width / 2 - 100, 10, 98, 20).build());
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("menu.quit"), (button) -> {
+            assert this.client != null;
+            this.client.scheduleStop();
+        }).dimensions(this.width / 2 + 2, 10, 98, 20).build());
 
         XpStartButton startMenuButton = new XpStartButton(0,
                 this.height - 17,
@@ -55,7 +61,10 @@ public class XPMainMenuScreen extends Screen {
                 32,
                 id("screens/icons/singleplayer.png"),
                 "singleplayer.exe",
-                () -> this.client.setScreen(new SelectWorldScreen(this)));
+                () -> {
+                    assert this.client != null;
+                    this.client.setScreen(new SelectWorldScreen(this));
+                });
 
         this.addDrawableChild(singlePlayerButton);
 
@@ -65,7 +74,10 @@ public class XPMainMenuScreen extends Screen {
                 32,
                 id("screens/icons/multiplayer.png"),
                 "multiplayer.exe",
-                () -> this.client.setScreen(new MultiplayerScreen(this)));
+                () -> {
+                    assert this.client != null;
+                    this.client.setScreen(new MultiplayerScreen(this));
+                });
 
         this.addDrawableChild(multiPlayerButton);
 

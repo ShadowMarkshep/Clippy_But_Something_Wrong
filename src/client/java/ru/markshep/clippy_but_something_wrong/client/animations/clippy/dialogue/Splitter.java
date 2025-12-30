@@ -2,68 +2,68 @@ package ru.markshep.clippy_but_something_wrong.client.animations.clippy.dialogue
 
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.client.font.TextRenderer;
 import ru.markshep.clippy_but_something_wrong.client.utils.exceptions.OutOfDialogueBoxException;
-import static ru.markshep.clippy_but_something_wrong.client.Clippy_but_something_wrongClient.client;
-import static ru.markshep.clippy_but_something_wrong.client.Clippy_but_something_wrongClient.modLogger;
 
-//Честно говоря, это очень плохой класс, он написан нейронкой, в будущем я его исправлю
-//TODO: переписать вручную
-//TODO: kill that with fire
-public class Splitter {
+public final class Splitter {
+
+    private Splitter() {
+        throw new IllegalStateException("Утилитарный класс");
+    }
+
+    private static final int maxSymbols = 18;
+    private static final int maxLines = 4;
+
     public static List<String> splitText(String text) throws OutOfDialogueBoxException {
         List<String> lines = new ArrayList<>();
-        TextRenderer font = client.textRenderer;
-        int maxWidth = DialogueAnimation.dialogueWidth;
-        StringBuilder currentLine = new StringBuilder();
-
-        for (String paragraph : text.split("\n")) {
-            currentLine.setLength(0);
-            for (String word : paragraph.split(" ")) {
-                String candidate = currentLine.length() == 0
-                        ? word
-                        : currentLine + " " + word;
-                if (font.getWidth(candidate) <= maxWidth) {
-                    if (currentLine.length() > 0) currentLine.append(' ');
-                    currentLine.append(word);
-                } else {
-                    if (currentLine.length() > 0) {
-                        lines.add(currentLine.toString());
-                    }
-                    currentLine.setLength(0);
-                    if (font.getWidth(word) > maxWidth) {
-                        StringBuilder part = new StringBuilder();
-                        for (char c : word.toCharArray()) {
-                            if (font.getWidth(part.toString() + c) <= maxWidth) {
-                                part.append(c);
-                            } else {
-                                lines.add(part.toString());
-                                part.setLength(0);
-                                part.append(c);
-                            }
-                        }
-                        if (part.length() > 0) {
-                            currentLine.append(part);
+        StringBuilder builder = new StringBuilder();
+        for (String word : text.split(" ")) {
+            if (word.length() > maxSymbols) {
+                List<String> longWord = breakLongWord(word);
+                for (String part : longWord) {
+                    if (part.length() +  builder.length() > maxSymbols) {
+                        lines.add(builder.toString());
+                        builder = new StringBuilder();
+                        builder.append(part).append(" ");
+                        if (lines.size() > maxLines) {
+                            throw new OutOfDialogueBoxException();
                         }
                     } else {
-                        currentLine.append(word);
+                        builder.append(part).append(" ");
                     }
                 }
+                continue;
             }
-            if (currentLine.length() > 0) {
-                lines.add(currentLine.toString());
+            if (word.length() +  builder.length() > maxSymbols) {
+                lines.add(builder.toString());
+                builder = new StringBuilder();
+                builder.append(word).append(" ");
+                if (lines.size() > maxLines) {
+                    throw new OutOfDialogueBoxException();
+                }
+            } else {
+                builder.append(word).append(" ");
             }
-            lines.add("");
         }
-
-        if (!lines.isEmpty() && lines.get(lines.size() - 1).isEmpty()) {
-            lines.remove(lines.size() - 1);
-        }
-
-        if (lines.size() >= 5) {
-            throw new OutOfDialogueBoxException();
+        if (!builder.isEmpty()) {
+            lines.add(builder.toString());
+            if (lines.size() > maxLines) {
+                throw new OutOfDialogueBoxException();
+            }
         }
 
         return lines;
+    }
+
+    private static List<String> breakLongWord(String word) {
+        List<String> parts = new ArrayList<>();
+        int start = 0;
+
+        while (start < word.length()) {
+            int end = Math.min(start + maxSymbols, word.length());
+            parts.add(word.substring(start, end));
+            start = end;
+        }
+
+        return parts;
     }
 }

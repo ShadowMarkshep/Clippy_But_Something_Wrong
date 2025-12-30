@@ -6,7 +6,6 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.util.Identifier;
 import ru.markshep.clippy_but_something_wrong.client.utils.Utils;
 
-import static ru.markshep.clippy_but_something_wrong.client.Clippy_but_something_wrongClient.client;
 import static ru.markshep.clippy_but_something_wrong.client.Clippy_but_something_wrongClient.statement;
 
 public class ClippyAnimation {

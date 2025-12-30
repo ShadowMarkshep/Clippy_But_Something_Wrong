@@ -12,7 +12,7 @@ import static ru.markshep.clippy_but_something_wrong.client.Clippy_but_something
 
 public class IconButton extends ClickableWidget {
 
-    private Identifier texture;
+    private final Identifier texture;
     private final Runnable onClickAction;
 
     public IconButton(int x, int y, int width, int height, Identifier texture, String text, Runnable onClickAction) {
@@ -73,15 +73,13 @@ public class IconButton extends ClickableWidget {
                 if (XPMainMenuScreen.selectedButton == null || XPMainMenuScreen.selectedButton == this) {
                     if (XPMainMenuScreen.selectedButton == this){
                         this.onClickAction.run();
-                        return true;
                     } else {
                         XPMainMenuScreen.selectedButton = this;
-                        return true;
                     }
                 } else {
                     XPMainMenuScreen.selectedButton = this;
-                    return true;
                 }
+                return true;
             } else {
                 return false;
             }

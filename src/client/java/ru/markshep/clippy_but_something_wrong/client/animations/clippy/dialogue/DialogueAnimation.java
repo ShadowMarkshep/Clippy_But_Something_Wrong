@@ -32,12 +32,21 @@ public class DialogueAnimation {
     private static int frameCounter = 0;
     private static int framesPerChar;
 
+    private static int delayFramesCounter = 0;
+    private static final int DISPLAY_SECONDS = 3;
+
     public static void startDialogue(String text) {
+        try {
+            Splitter.splitText(text);
+        } catch (OutOfDialogueBoxException e) {
+            return;
+        }
         fullText = text;
         visible = true;
         totalChars = text.length();
         displayedChars = 0;
         frameCounter = 0;
+        delayFramesCounter = 0;
     }
 
     public static void hideDialogue() {
@@ -66,6 +75,7 @@ public class DialogueAnimation {
         }
 
         String visibleText = fullText.substring(0, displayedChars);
+
         List<String> lines;
         try {
             lines = Splitter.splitText(visibleText);
@@ -89,11 +99,20 @@ public class DialogueAnimation {
                     false
             );
         }
+
+        if (displayedChars >= totalChars) {
+            delayFramesCounter++;
+            int framesNeeded = fps * DISPLAY_SECONDS;
+
+            if (delayFramesCounter >= framesNeeded) {
+                hideDialogue();
+            }
+        }
+
     }
 
     private static void playTypeSound() {
-        SoundManager soundManager = MinecraftClient.getInstance().getSoundManager();
-        soundManager.play(
+        MinecraftClient.getInstance().getSoundManager().play(
                 PositionedSoundInstance.master(
                         SoundEvents.BLOCK_NOTE_BLOCK_HAT,
                         1.0f

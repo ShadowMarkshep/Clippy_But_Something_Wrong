@@ -19,7 +19,8 @@ public class ScreamerAnimation {
         }
         int finalCounter = MinecraftClient.getInstance().getCurrentFps() / fps;
         Identifier texture = id(path);
-            context.drawTexture(RenderLayer::getGuiTextured, texture, 0, 0, 0, 360 * currentFrame, client.currentScreen.width, client.currentScreen.height, 640, 5760);
+        assert client.currentScreen != null;
+        context.drawTexture(RenderLayer::getGuiTextured, texture, 0, 0, 0, 360 * currentFrame, client.currentScreen.width, client.currentScreen.height, 640, 5760);
         counter++;
         if (counter > finalCounter) {
             currentFrame++;
