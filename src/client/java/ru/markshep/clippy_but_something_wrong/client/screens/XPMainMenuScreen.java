@@ -17,21 +17,10 @@ import ru.markshep.clippy_but_something_wrong.client.screens.buttons.XpStartButt
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static ru.markshep.clippy_but_something_wrong.client.screens.MainMenuVariables.*;
 import static ru.markshep.clippy_but_something_wrong.client.utils.Utils.id;
 
 public class XPMainMenuScreen extends Screen {
-
-    public static int wallpaperFrame = 0;
-    public static String wallpaperName;
-    public final static int wallpaperTotalFrames = 82;
-
-    public static int wallpaperTotalCounter;
-    public static int wallpaperCounter = 0;
-
-    public static IconButton selectedButton = null;
-
-    public static boolean startMenuIsActive = false;
-
 
     public XPMainMenuScreen() {
         super(Text.of("Главное меню"));
@@ -39,10 +28,8 @@ public class XPMainMenuScreen extends Screen {
 
     @Override
     protected void init() {
-        this.addDrawableChild(ButtonWidget.builder(Text.translatable("menu.options"), (button) -> {
-            assert this.client != null;
-            this.client.setScreen(new OptionsScreen(this, this.client.options));
-        }).dimensions(this.width / 2 - 100, 10, 98, 20).build());
+        assert client != null;
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("menu.options"), (button) -> this.client.setScreen(new OptionsScreen(this, this.client.options))).dimensions(this.width / 2 - 100, 10, 98, 20).build());
 
         XpStartButton startMenuButton = new XpStartButton(0,
                 this.height - 17,
@@ -57,10 +44,7 @@ public class XPMainMenuScreen extends Screen {
                 32,
                 id("screens/icons/singleplayer.png"),
                 "singleplayer.exe",
-                () -> {
-                    assert this.client != null;
-                    this.client.setScreen(new SelectWorldScreen(this));
-                });
+                () -> this.client.setScreen(new SelectWorldScreen(this)));
 
         this.addDrawableChild(singlePlayerButton);
 
@@ -70,16 +54,14 @@ public class XPMainMenuScreen extends Screen {
                 32,
                 id("screens/icons/multiplayer.png"),
                 "multiplayer.exe",
-                () -> {
-                    assert this.client != null;
-                    this.client.setScreen(new MultiplayerScreen(this));
-                });
+                () -> this.client.setScreen(new MultiplayerScreen(this)));
 
         this.addDrawableChild(multiPlayerButton);
 
         if (startMenuIsActive){
-            PowerOffButton powerOffButton = new PowerOffButton(200 - 45 - 16, this.height - 17 - 17, 16, 16);
+            PowerOffButton powerOffButton = new PowerOffButton(200 - 45 - 16 - client.textRenderer.getWidth(Text.of("Turn off")), this.height - 17 - 17, 16, 16);
             this.addDrawableChild(powerOffButton);
+
         }
     }
 

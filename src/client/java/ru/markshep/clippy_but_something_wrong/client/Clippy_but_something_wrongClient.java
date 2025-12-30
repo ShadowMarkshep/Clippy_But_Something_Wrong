@@ -39,7 +39,6 @@ public class Clippy_but_something_wrongClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         modLogger.info("Clippy загружается!");
-        XPMainMenuScreen.startMenuIsActive = false;
         keyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 translationKey("test"),
                 InputUtil.GLFW_KEY_Y,
