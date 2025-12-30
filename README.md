@@ -107,7 +107,6 @@
 Если у вас возникли вопросы или предложения:
 
 - **Issues**: [GitHub Issues](../../issues)
-- **Discussions**: [GitHub Discussions](../../discussions)
 - **Telegram DM**: [@m_shadowless](https://t.me/m_shadowless)
 
 ## Лицензия
