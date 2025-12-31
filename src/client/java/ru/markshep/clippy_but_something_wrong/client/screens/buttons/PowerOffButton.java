@@ -11,8 +11,6 @@ import static ru.markshep.clippy_but_something_wrong.client.utils.Utils.id;
 
 public class PowerOffButton extends ClickableWidget {
 
-    private boolean isClicked = false;
-
     public PowerOffButton(int x, int y, int width, int height) {
         super(x, y, width, height, Text.empty());
     }
@@ -20,32 +18,10 @@ public class PowerOffButton extends ClickableWidget {
     @Override
     protected void renderWidget(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
         context.drawText(client.textRenderer, Text.of("Turn Off"), this.getX() + 18, this.getY() + 4, 0xFFFFFF, true);
-        if (this.isClicked) {
-
+        if (this.isHovered()) {
+            context.drawTexture(RenderLayer::getGuiTextured, id("screens/start_menu_buttons/power_off_hovered.png"), this.getX(), this.getY(), 0, 0, this.width, this.height, this.width, this.height);
         } else {
-            if (this.isHovered()) {
-                context.drawTexture(RenderLayer::getGuiTextured,
-                        id("screens/start_menu_buttons/power_off_hovered.png"),
-                        this.getX(),
-                        this.getY(),
-                        0,
-                        0,
-                        this.width,
-                        this.height,
-                        this.width,
-                        this.height);
-            } else {
-                context.drawTexture(RenderLayer::getGuiTextured,
-                        id("screens/start_menu_buttons/power_off_base.png"),
-                        this.getX(),
-                        this.getY(),
-                        0,
-                        0,
-                        this.width,
-                        this.height,
-                        this.width,
-                        this.height);
-            }
+            context.drawTexture(RenderLayer::getGuiTextured, id("screens/start_menu_buttons/power_off_base.png"), this.getX(), this.getY(), 0, 0, this.width, this.height, this.width, this.height);
         }
     }
     @Override
@@ -54,12 +30,6 @@ public class PowerOffButton extends ClickableWidget {
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (this.isMouseOver(mouseX, mouseY)) {
-            this.isClicked = true;
-            try {
-                wait(200);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
             client.scheduleStop();
             return true;
         }

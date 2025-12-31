@@ -15,49 +15,29 @@ public class StartMenuBlueButton extends ClickableWidget {
     private final Identifier texture;
     private final Runnable onClickAction;
 
-    public StartMenuBlueButton(int x, int y, int width, int height, Identifier texture, String text, Runnable onClickAction) {
-        super(x, y, width, height, Text.of(text));
+    public StartMenuBlueButton(int x, int y, Identifier texture, String text, Runnable onClickAction) {
+        super(x, y, 16 + 32 + client.textRenderer.getWidth(text) + 1, 16 + 1, Text.of(text));
         this.texture = texture;
         this.onClickAction = onClickAction;
     }
 
     @Override
     protected void renderWidget(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
-        context.drawTexture(RenderLayer::getGuiTextured,
-                this.texture,
-                this.getX(),
-                this.getY(),
-                0,
-                0,
-                16,
-                16,
-                this.width,
-                this.height);
+        if (this.isHovered()) {
 
-//        float scale = 0.75f;
-//
-//        int textW = (int) (client.textRenderer.getWidth(this.getMessage()) * scale);
-//        int textH = (int) (client.textRenderer.fontHeight * scale);
-//        int tx = this.getX() + (this.width - textW) / 2;
-//        int ty = this.getY() + this.getHeight() + 2;
-//
-//        if (this.isHovered()) {
-//            context.fill(this.getX(), this.getY(), this.getX() + this.getWidth(), this.getY() + this.getHeight(), 0x553399FF);
-//
-//            context.fill(tx - 1, ty - 1, tx + textW + 1, ty + textH + 1, 0xFF3399FF);
-//        }
-//
-//        context.getMatrices().push();
-//        context.getMatrices().scale(scale, scale, 1);
-//
-//        int color = 0xFFFFFF;
-//
-//        int textX = (int) (tx / 0.75f);
-//        int textY = (int) (ty / 0.75f);
-//
-//        context.drawText(client.textRenderer, this.getMessage(), textX, textY, color, true);
-//
-//        context.getMatrices().pop();
+            context.fill(this.getX() - 1, this.getY() - 1, this.getX() + this.getWidth(), this.getY() + this.getHeight(), 0xFF0052CC);
+
+            context.drawTexture(RenderLayer::getGuiTextured, this.texture, this.getX(), this.getY(), 0, 0, 16, 16, 16, 16);
+
+            context.drawText(client.textRenderer, this.getMessage(), this.getX() + 32, this.getY() + 4, 0xFFFFFF, true);
+
+        } else {
+
+            context.drawTexture(RenderLayer::getGuiTextured, this.texture, this.getX(), this.getY(), 0, 0, 16, 16, 16, 16);
+
+            context.drawText(client.textRenderer, this.getMessage(), this.getX() + 32, this.getY() + 4, 0x696969, true);
+
+        }
     }
 
     @Override

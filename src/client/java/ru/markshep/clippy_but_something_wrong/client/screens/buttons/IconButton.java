@@ -24,16 +24,7 @@ public class IconButton extends ClickableWidget {
 
     @Override
     protected void renderWidget(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
-        context.drawTexture(RenderLayer::getGuiTextured,
-                this.texture,
-                this.getX(),
-                this.getY(),
-                0,
-                0,
-                this.width,
-                this.height,
-                this.width,
-                this.height);
+        context.drawTexture(RenderLayer::getGuiTextured, this.texture, this.getX(), this.getY(), 0, 0, this.width, this.height, this.width, this.height);
 
         float scale = 0.75f;
 
@@ -51,12 +42,10 @@ public class IconButton extends ClickableWidget {
         context.getMatrices().push();
         context.getMatrices().scale(scale, scale, 1);
 
-        int color = 0xFFFFFF;
-
         int textX = (int) (tx / 0.75f);
         int textY = (int) (ty / 0.75f);
 
-        context.drawText(client.textRenderer, this.getMessage(), textX, textY, color, true);
+        context.drawText(client.textRenderer, this.getMessage(), textX, textY, 0xFFFFFF, true);
 
         context.getMatrices().pop();
     }

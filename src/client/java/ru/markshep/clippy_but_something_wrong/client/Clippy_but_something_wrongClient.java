@@ -19,11 +19,14 @@ import ru.markshep.clippy_but_something_wrong.client.animations.clippy.RandomAni
 import ru.markshep.clippy_but_something_wrong.client.animations.clippy.Statement;
 import ru.markshep.clippy_but_something_wrong.client.animations.clippy.dialogue.DialogueAnimation;
 import ru.markshep.clippy_but_something_wrong.client.screens.XPMainMenuScreen;
+import ru.markshep.clippy_but_something_wrong.client.utils.ModConfig;
 
 import static ru.markshep.clippy_but_something_wrong.client.utils.Utils.id;
 import static ru.markshep.clippy_but_something_wrong.client.utils.Utils.translationKey;
 
 public class Clippy_but_something_wrongClient implements ClientModInitializer {
+
+    public static ModConfig CONFIG;
 
     public static final String modId = "clippy_but_something_wrong";
     public static final Logger modLogger = LogManager.getLogger(modId);
@@ -38,6 +41,7 @@ public class Clippy_but_something_wrongClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        CONFIG = ModConfig.load();
         modLogger.info("Clippy загружается!");
         keyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 translationKey("test"),
@@ -58,9 +62,10 @@ public class Clippy_but_something_wrongClient implements ClientModInitializer {
 //                "\n\nЕсли вы нашли недочёт, то напишите в тг личные сообщения: @m_shadowless"), new WString("Clippy, but something is wrong"), User32Ext.MB_OK | User32Ext.MB_ICONERROR);
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (keyBinding.wasPressed()) {
-                DialogueAnimation.startDialogue("Я люблю сосать хуи, жирные огромные члены.");
+
             }
         });
+
         ScreenEvents.AFTER_INIT.register((minecraftClient, screen, i, i1) -> {
             if (screen instanceof TitleScreen) {
                 client.setScreen(new XPMainMenuScreen());

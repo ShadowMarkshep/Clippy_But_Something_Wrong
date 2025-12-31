@@ -76,13 +76,7 @@ public class DialogueAnimation {
 
         String visibleText = fullText.substring(0, displayedChars);
 
-        List<String> lines;
-        try {
-            lines = Splitter.splitText(visibleText);
-        } catch (OutOfDialogueBoxException e) {
-            hideDialogue();
-            return;
-        }
+        List<String> lines = Splitter.splitText(visibleText);;
 
         TextRenderer font = client.textRenderer;
         int lineHeight = font.fontHeight + 2;
