@@ -6,7 +6,6 @@ import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import ru.markshep.clippy_but_something_wrong.client.screens.XPMainMenuScreen;
 
 import static ru.markshep.clippy_but_something_wrong.client.Clippy_but_something_wrongClient.client;
 import static ru.markshep.clippy_but_something_wrong.client.screens.MainMenuVariables.selectedButton;
